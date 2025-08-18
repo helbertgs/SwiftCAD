@@ -11,4 +11,9 @@ public struct _GraphValue<Value> {
     public init(_ value: Value) {
         self.value = value
     }
+
+    /// Accesses a value in the graph using a key path.
+    public subscript<U>(keyPath: KeyPath<Value, U>) -> _GraphValue<U> {
+        get { .init(value[keyPath: keyPath]) }
+    }
 }
