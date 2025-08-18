@@ -5,8 +5,8 @@ struct MyApp : App {
     var body: some Scene {
         Window(title: "Sphere") {
             Union {
-                Sphere(radius: 10)
-                Cube(size: 10)
+                Cube(size: 20)
+                Sphere(radius: 12)
             }
         }
     }

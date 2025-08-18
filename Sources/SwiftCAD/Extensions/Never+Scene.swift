@@ -11,6 +11,3 @@ extension Never : Scene {
         fatalError("Never scene cannot be created")
     }
 }
-
-
-    
