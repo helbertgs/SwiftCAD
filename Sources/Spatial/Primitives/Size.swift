@@ -29,17 +29,19 @@ import Foundation
     // MARK: - Creating a 3D size structure
 
     /// Creates a new size with the given dimensions.
+    /// 
     /// - Parameters:
     ///   - width: The width of the size.
     ///   - height: The height of the size.
     ///   - depth: The depth of the size.
-    public init(width: Double, height: Double, depth: Double) {
+    public init(width: Double = 0, height: Double = 0, depth: Double = 0) {
         self.width = width
         self.height = height
         self.depth = depth
     }
 
     /// Creates a size structure from the specified floating-point values.
+    /// 
     /// - Parameters:
     ///   - width: A floating-point value that specifies the width.
     ///   - height: A floating-point value that specifies the height.
@@ -51,11 +53,21 @@ import Foundation
     }
 
     /// Creates a size structure from the specified Spatial vector.
+    /// 
     /// - Parameter vector: A vector that specifies the dimensions.
     public init(_ xyz: Vector3) {
         self.width = xyz.x
         self.height = xyz.y
         self.depth = xyz.z
+    }
+
+    /// Creates a size structure from the specified Spatial vector.
+    /// 
+    /// - Parameter vector: A vector that specifies the dimensions.
+    public init(_ xy: Vector2) {
+        self.width = xy.x
+        self.height = xy.y
+        self.depth = 0
     }
 }
 
@@ -64,6 +76,7 @@ extension Size : AdditiveArithmetic {
     // MARK: - Applying arithmetic operations
 
     /// Multiplies a size by a scalar value.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to multiply.
     ///   - rhs: The scalar value to multiply by.
@@ -74,6 +87,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Multiplies a size by a scalar value in place.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to multiply.
     ///   - rhs: The scalar value to multiply by.
@@ -83,6 +97,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Returns a size that’s the element-wise sum of two sizes.
+    /// 
     /// - Parameters:
     ///   - lhs: The left-hand-side value.
     ///   - rhs: The right-hand-side value.
@@ -93,6 +108,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Returns a size that’s the element-wise sum of two sizes.
+    /// 
     /// - Parameters:
     ///   - lhs: The left-hand-side value.
     ///   - rhs: The right-hand-side value.
@@ -103,6 +119,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Adds two sizes together.
+    /// 
     /// - Parameters:
     ///   - lhs: The left-hand-side value.
     ///   - rhs: The right-hand-side value.
@@ -112,6 +129,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Adds a vector to a size.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to add to.
     ///   - rhs: The vector to add.
@@ -121,6 +139,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Returns a size that’s the element-wise difference of two sizes.
+    /// 
     /// - Parameters:
     ///   - lhs: The left-hand-side value.
     ///   - rhs: The right-hand-side value.
@@ -131,6 +150,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Subtracts two sizes.
+    /// 
     /// - Parameters:
     ///   - lhs: The left-hand-side value.
     ///   - rhs: The right-hand-side value.
@@ -140,6 +160,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Subtracts a vector from a size.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to subtract from.
     ///   - rhs: The vector to subtract.
@@ -150,6 +171,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Subtracts a vector from a size.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to subtract from.
     ///   - rhs: The vector to subtract.
@@ -159,6 +181,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Divides a size by a scalar value.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to divide.
     ///   - rhs: The scalar value to divide by.
@@ -169,6 +192,7 @@ extension Size : AdditiveArithmetic {
     }
 
     /// Divides a size by a scalar value in place.
+    /// 
     /// - Parameters:
     ///   - lhs: The size to divide.
     ///   - rhs: The scalar value to divide by.

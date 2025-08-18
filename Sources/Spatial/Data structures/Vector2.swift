@@ -26,15 +26,17 @@ import Foundation
     // MARK: - Creating a 2D vector
 
     /// Creates a new 2D vector.
+    ///
     /// - Parameters:
     ///   - x: The x-coordinate of the vector
     ///   - y: The y-coordinate of the vector
-    @inlinable public init(x: Double, y: Double) {
+    @inlinable public init(x: Double = 0, y: Double = 0) {
         self.x = x
         self.y = y
     }
 
     /// Creates a new 2D vector from the specified floating-point values.
+    ///
     /// - Parameters:
     ///   - x: A floating-point value that specifies the x-coordinate.
     ///   - y: A floating-point value that specifies the y-coordinate.
@@ -44,10 +46,19 @@ import Foundation
     }
 
     /// Creates a new 2D vector from the specified size.
+    ///
     /// - Parameter size: A size that specifies the dimensions.
     @inlinable public init(size: Size) {
         self.x = size.width
         self.y = size.height
+    }
+
+    /// Creates a new 2D vector from the specified 3D vector.
+    ///
+    /// - Parameter vector3: A 3D vector that specifies the x, y, and z coordinates.
+    @inlinable public init(_ vector3: Vector3) {
+        self.x = vector3.x
+        self.y = vector3.y
     }
 }
 
@@ -56,6 +67,7 @@ extension Vector2 : AdditiveArithmetic {
     // MARK: - Applying arithmetic operations
 
     /// Multiplies a size by a scalar value.
+    ///
     /// - Parameters:
     ///   - lhs: The size to multiply.
     ///   - rhs: The scalar value to multiply by.
@@ -66,6 +78,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Multiplies a vector by a scalar value in place.
+    ///
     /// - Parameters:
     ///   - lhs: The vector to multiply.
     ///   - rhs: The scalar value to multiply by.
@@ -75,6 +88,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Adds two vectors.
+    ///
     /// - Parameters:
     ///   - lhs: The left-hand-side vector.
     ///   - rhs: The right-hand-side vector.
@@ -85,6 +99,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Adds two vectors together.
+    ///
     /// - Parameters:
     ///   - lhs: The left-hand-side vector.
     ///   - rhs: The right-hand-side vector.
@@ -94,6 +109,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Subtracts two vectors.
+    ///
     /// - Parameters:
     ///   - lhs: The left-hand-side vector.
     ///   - rhs: The right-hand-side vector.
@@ -104,6 +120,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Subtracts two vectors.
+    ///
     /// - Parameters:
     ///   - lhs: The left-hand-side vector.
     ///   - rhs: The right-hand-side vector.
@@ -114,6 +131,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Divides a vector by a scalar value.
+    ///
     /// - Parameters:
     ///   - lhs: The vector to divide.
     ///   - rhs: The scalar value to divide by.
@@ -124,6 +142,7 @@ extension Vector2 : AdditiveArithmetic {
     }
 
     /// Divides a vector by a scalar value in place.
+    ///
     /// - Parameters:
     ///   - lhs: The vector to divide.
     ///   - rhs: The scalar value to divide by.
