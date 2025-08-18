@@ -69,6 +69,16 @@ import Foundation
         self.y = vector2.y
         self.z = 0
     }
+
+    /// Creates a new 3D vector from the specified 3D point.
+    ///
+    /// - Parameters:
+    ///   - point: A 3D point that specifies the x, y, and z coordinates.
+    @inlinable public init(_ point: Point) {
+        self.x = point.x
+        self.y = point.y
+        self.z = point.z
+    }
 }
 
 extension Vector3 : AdditiveArithmetic {
@@ -181,5 +191,120 @@ extension Vector3 : Primitive {
     /// A primitive with infinite values.
     public static var infinity: Vector3 {
         Vector3(x: .infinity, y: .infinity, z: .infinity)
+    }
+}
+
+extension Vector3 : Scalable {
+
+    /// Scales the entity by the given size.
+    /// 
+    /// - Parameter size: The size to scale the entity by.
+    public mutating func scale(by size: Size) {
+        self = Vector3(x: x * size.width, y: y * size.height, z: z * size.depth)
+    }
+
+    /// Scales the entity by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    public mutating func scaleBy(x: Double, y: Double) {
+        self = Vector3(x: x * self.x, y: y * self.y, z: self.z)
+    }
+
+    /// Returns a new entity scaled by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    public func scaledBy(x: Double, y: Double) -> Vector3 {
+        Vector3(x: x * self.x, y: y * self.y, z: self.z)
+    }
+
+    /// Scales the entity by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    ///   - z: The factor to scale the entity's z dimension by.
+    public mutating func scaleBy(x: Double, y: Double, z: Double) {
+        self = Vector3(x: x * self.x, y: y * self.y, z: z * self.z)
+    }
+
+    /// Returns a new entity scaled by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    ///   - z: The factor to scale the entity's z dimension by.
+    public func scaledBy(x: Double, y: Double, z: Double) -> Vector3 {
+        Vector3(x: x * self.x, y: y * self.y, z: z * self.z)
+    }
+
+    /// Uniformly scales the entity by the given factor.
+    ///
+    /// - Parameter scale: The factor to scale the entity by.
+    public mutating func uniformlyScale(by scale: Double) {
+        self = Vector3(x: x * scale, y: y * scale, z: z * scale)
+    }
+
+    /// Returns a new entity uniformly scaled by the given factor.
+    ///
+    /// - Parameter scale: The factor to scale the entity by.
+    public func uniformlyScaled(by scale: Double) -> Vector3 {
+        Vector3(x: x * scale, y: y * scale, z: z * scale)
+    }
+}
+
+extension Vector3 : Rotatable {
+
+    /// Rotates the point by the specified quaternion.
+    ///
+    /// - Parameter quaternion: The quaternion representing the rotation.
+    public mutating func rotate(by quaternion: Quaternion) {
+    }
+
+    /// Returns a new point rotated by the specified quaternion.
+    ///
+    /// - Parameter rotation: The quaternion representing the rotation.
+    public func rotated(by rotation: Quaternion) -> Vector3 {
+        var copy = self
+        copy.rotate(by: rotation)
+        return copy
+    }
+}
+
+extension Vector3 : Translatable {
+
+    /// Translates the entity by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public mutating func translate(by vector: Vector2) {
+        self = Vector3(x: x + vector.x, y: y + vector.y, z: z)
+    }
+
+    /// Returns a new entity translated by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public func translated(by vector: Vector2) -> Vector3 {
+        var copy = self
+        copy.translate(by: vector)
+        return copy
+    }
+
+    /// Translates the entity by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public mutating func translate(by vector: Vector3) {
+        self = Vector3(x: x + vector.x, y: y + vector.y, z: z + vector.z)
+    }
+
+    /// Returns a new entity translated by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public func translated(by vector: Vector3) -> Vector3 {
+        var copy = self
+        copy.translate(by: vector)
+        return copy
     }
 }

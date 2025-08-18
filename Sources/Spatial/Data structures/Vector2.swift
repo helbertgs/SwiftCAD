@@ -174,3 +174,118 @@ extension Vector2 : Primitive {
         Vector2(x: .infinity, y: .infinity)
     }
 }
+
+extension Vector2 : Scalable {
+
+    /// Scales the entity by the given size.
+    /// 
+    /// - Parameter size: The size to scale the entity by.
+    public mutating func scale(by size: Size) {
+        self = Vector2(x: x * size.width, y: y * size.height)
+    }
+
+    /// Scales the entity by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    public mutating func scaleBy(x: Double, y: Double) {
+        self = Vector2(x: x * self.x, y: y * self.y)
+    }
+
+    /// Returns a new entity scaled by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    public func scaledBy(x: Double, y: Double) -> Vector2 {
+        Vector2(x: x * self.x, y: y * self.y)
+    }
+
+    /// Scales the entity by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    ///   - z: The factor to scale the entity's z dimension by.
+    public mutating func scaleBy(x: Double, y: Double, z: Double) {
+        self = Vector2(x: x * self.x, y: y * self.y)
+    }
+
+    /// Returns a new entity scaled by the given factors.
+    ///
+    /// - Parameters:
+    ///   - x: The factor to scale the entity's x dimension by.
+    ///   - y: The factor to scale the entity's y dimension by.
+    ///   - z: The factor to scale the entity's z dimension by.
+    public func scaledBy(x: Double, y: Double, z: Double) -> Vector2 {
+        Vector2(x: x * self.x, y: y * self.y)
+    }
+
+    /// Uniformly scales the entity by the given factor.
+    ///
+    /// - Parameter scale: The factor to scale the entity by.
+    public mutating func uniformlyScale(by scale: Double) {
+        self = Vector2(x: x * scale, y: y * scale)
+    }
+
+    /// Returns a new entity uniformly scaled by the given factor.
+    ///
+    /// - Parameter scale: The factor to scale the entity by.
+    public func uniformlyScaled(by scale: Double) -> Vector2 {
+        Vector2(x: x * scale, y: y * scale)
+    }
+}
+
+extension Vector2 : Rotatable {
+
+    /// Rotates the point by the specified quaternion.
+    ///
+    /// - Parameter quaternion: The quaternion representing the rotation.
+    public mutating func rotate(by quaternion: Quaternion) {
+    }
+
+    /// Returns a new point rotated by the specified quaternion.
+    ///
+    /// - Parameter rotation: The quaternion representing the rotation.
+    public func rotated(by rotation: Quaternion) -> Vector2 {
+        var copy = self
+        copy.rotate(by: rotation)
+        return copy
+    }
+}
+
+extension Vector2 : Translatable {
+
+    /// Translates the entity by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public mutating func translate(by vector: Vector2) {
+        self = Vector2(x: x + vector.x, y: y + vector.y)
+    }
+
+    /// Returns a new entity translated by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public func translated(by vector: Vector2) -> Vector2 {
+        var copy = self
+        copy.translate(by: vector)
+        return copy
+    }
+
+    /// Translates the entity by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public mutating func translate(by vector: Vector3) {
+        self = Vector2(x: x + vector.x, y: y + vector.y)
+    }
+
+    /// Returns a new entity translated by the given vector.
+    /// 
+    /// - Parameter vector: The vector that defines the translation.
+    public func translated(by vector: Vector3) -> Vector2 {
+        var copy = self
+        copy.translate(by: vector)
+        return copy
+    }
+}
