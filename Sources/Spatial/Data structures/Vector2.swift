@@ -23,6 +23,8 @@ import Foundation
         Vector2(x: 1, y: 1)
     }
 
+    // MARK: - Creating a 2D vector
+
     /// Creates a new 2D vector.
     /// - Parameters:
     ///   - x: The x-coordinate of the vector
@@ -128,5 +130,28 @@ extension Vector2 : AdditiveArithmetic {
     /// - Complexity: O(1)
     @inlinable public static func /= (lhs: inout Vector2, rhs: Double) {
         lhs = lhs / rhs
+    }
+}
+
+extension Vector2 : Primitive {
+
+    /// Returns a Boolean value that indicates whether the vector is finite.
+    public var isFinite: Bool {
+        x.isFinite && y.isFinite
+    }
+
+    /// Returns a Boolean value that indicates whether the vector contains any NaN values.
+    public var isNaN: Bool {
+        x.isNaN || y.isNaN
+    }
+
+    /// Returns a Boolean value that indicates whether the vector is zero.
+    public var isZero: Bool {
+        x == 0 && y == 0
+    }
+
+    /// A vector with infinite values.
+    public static var infinity: Vector2 {
+        Vector2(x: .infinity, y: .infinity)
     }
 }

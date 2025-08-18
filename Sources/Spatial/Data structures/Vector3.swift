@@ -26,6 +26,8 @@ import Foundation
         Vector3(x: 1, y: 1, z: 1)
     }
 
+    // MARK: - Creating a 3D vector
+
     /// Creates a new 3D vector.
     /// - Parameters:
     ///   - x: The x-coordinate of the vector
@@ -136,5 +138,28 @@ extension Vector3 : AdditiveArithmetic {
     /// - Complexity: O(1)
     @inlinable public static func /= (lhs: inout Vector3, rhs: Double) {
         lhs = lhs / rhs
+    }
+}
+
+extension Vector3 : Primitive {
+
+    /// Returns a Boolean value that indicates whether the primitive is infinite.
+    public var isFinite: Bool {
+        x.isFinite && y.isFinite && z.isFinite
+    }
+
+    /// Returns a Boolean value that indicates whether the primitive contains any NaN values.
+    public var isNaN: Bool {
+        x.isNaN || y.isNaN || z.isNaN
+    }
+
+    /// Returns a Boolean value that indicates whether the primitive is zero.
+    public var isZero: Bool {
+        x == 0 && y == 0 && z == 0
+    }
+
+    /// A primitive with infinite values.
+    public static var infinity: Vector3 {
+        Vector3(x: .infinity, y: .infinity, z: .infinity)
     }
 }
