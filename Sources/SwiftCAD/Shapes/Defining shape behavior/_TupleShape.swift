@@ -1,19 +1,20 @@
 import Foundation
 
 /// A structure that defines a tuple shape, which can contain any shape as its content.
-public struct _TupleShape<Content> : Shape {
+@frozen public struct _TupleShape<Content> {
 
     /// The content of the tuple shape, which is a shape conforming to the `Shape` protocol.
     public var content: Content
 
     /// Initializes a new instance of `_TupleShape` with the provided content.
     /// - Parameter content: The content of the tuple shape.
-    public init(_ content: Content) {
+    @inlinable public init(_ content: Content) {
         self.content = content
     }
+}
 
-    // MARK: - Shape
-    
+extension _TupleShape : Shape {
+
     /// The body of the shape.
     public var body : Never {
         fatalError("This should never be called")

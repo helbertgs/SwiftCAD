@@ -1,8 +1,7 @@
-import Foundation
 import Spatial
 
 /// A structure that represents a sphere.
-public struct Sphere : Shape {
+@frozen public struct Sphere : Codable, Equatable, Hashable, Sendable {
 
     // MARK: - Properties
 
@@ -20,13 +19,14 @@ public struct Sphere : Shape {
     ///   - radius: The radius of the sphere.
     ///   - slices: The number of slices in the sphere.
     ///   - stacks: The number of stacks in the sphere.
-    public init(radius: Double, slices: Int = 12, stacks: Int = 12) {
+    @inlinable public init(radius: Double, slices: Int = 12, stacks: Int = 12) {
         self.radius = radius
         self.slices = slices
         self.stacks = stacks
     }
+}
 
-    // MARK: - Shape
+extension Sphere : Shape {
 
     /// The body of the shape.
     public var body : Never {

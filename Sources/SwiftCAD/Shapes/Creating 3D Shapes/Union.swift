@@ -1,7 +1,7 @@
 import Foundation
 
 /// A shape that represents the union of two or more shapes.
-public struct Union<Content> : Shape where Content : Shape {
+public struct Union<Content> {
 
     /// The content of the union shape, which is a shape conforming to the `Shape` protocol.
     public let content: Content
@@ -11,9 +11,10 @@ public struct Union<Content> : Shape where Content : Shape {
     /// - Parameter content: The content of the union shape.
     public init(@ShapeBuilder _ content: () -> Content) {
         self.content = content()
-    }
+    } 
+}
 
-    // MARK: - Shape
+extension Union : Shape where Content : Shape {
 
     /// The body of the shape.
     public var body : Never {

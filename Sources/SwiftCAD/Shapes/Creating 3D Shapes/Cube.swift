@@ -1,7 +1,7 @@
 import Spatial
 
 /// A shape that represents a cube.
-public struct Cube : Shape {
+@frozen public struct Cube : Codable, Equatable, Hashable, Sendable {
 
     // MARK: - Properties
 
@@ -10,13 +10,13 @@ public struct Cube : Shape {
 
     /// Creates a new cube with the specified size.
     /// - Parameter size: The size of the cube.
-    public init(size: Size) {
+    @inlinable public init(size: Size) {
         self.size = size
     }
 
     /// Creates a new cube with the specified size.
     /// - Parameter size: The size of the cube.
-    public init<T>(size: T) where T : BinaryFloatingPoint {
+    @inlinable public init<T>(size: T) where T : BinaryFloatingPoint {
         self.size = Size(width: Double(size), height: Double(size), depth: Double(size))
     }
 
@@ -25,11 +25,12 @@ public struct Cube : Shape {
     ///   - width: The width of the cube.
     ///   - height: The height of the cube.
     ///   - depth: The depth of the cube.
-    public init<T>(width: T, height: T, depth: T) where T : BinaryFloatingPoint {
+    @inlinable public init<T>(width: T, height: T, depth: T) where T : BinaryFloatingPoint {
         self.size = Size(width: Double(width), height: Double(height), depth: Double(depth))
     }
+}
 
-    // MARK: - Shape
+extension Cube : Shape {
 
     /// The body of the shape.
     public var body : Never {

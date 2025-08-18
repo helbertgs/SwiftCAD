@@ -1,4 +1,4 @@
-import Foundation
+import Spatial
 
 /// A 3D shape representing a cylinder.
 @frozen public struct Cylinder : Codable, Equatable, Hashable, Sendable {
@@ -53,7 +53,7 @@ extension Cylinder : Shape {
     ///   - shape: The graph value representing the shape.
     ///   - inputs: The inputs for the shape.
     /// - Returns: The outputs of the shape.
-    public static func _makeShape(_ shape: _GraphValue<Sphere>, inputs: _ShapeInputs) -> _ShapeOutputs {
+    public static func _makeShape(_ shape: _GraphValue<Cylinder>, inputs: _ShapeInputs) -> _ShapeOutputs {
         var outputs = _ShapeOutputs()
         let r1 = shape.value.r1
         let r2 = shape.value.r2
@@ -70,11 +70,11 @@ extension Cylinder : Shape {
             let v1 = Vector3(x: x1 * r1, y: y1 * r1, z: 0)
             let v2 = Vector3(x: x1 * r2, y: y1 * r2, z: height)
             let v3 = Vector3(x: x0 * r2, y: y0 * r2, z: height)
-            
-            outputs.triangles.append(Triangle(v1: v0, v2: v1, v3: v2))
-            outputs.triangles.append(Triangle(v1: v0, v2: v2, v3: v3))
-            outputs.triangles.append(Triangle(v1: Vector3(x: 0, y: 0, z: 0), v2: v1, v3: v0))
-            outputs.triangles.append(Triangle(v1: Vector3(x: 0, y: 0, z: height), v2: v2, v3: v3))
+
+            outputs.triangles.append(Triangle(a: v0, b: v1, c: v2))
+            outputs.triangles.append(Triangle(a: v0, b: v2, c: v3))
+            outputs.triangles.append(Triangle(a: Vector3(x: 0, y: 0, z: 0), b: v1, c: v0))
+            outputs.triangles.append(Triangle(a: Vector3(x: 0, y: 0, z: height), b: v2, c: v3))
         }
 
         return outputs
