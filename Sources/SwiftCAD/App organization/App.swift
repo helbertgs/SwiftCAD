@@ -35,9 +35,7 @@ extension App {
         let app = Self()
         let scene = app.body
         let outputs = Self.Body._makeScene(.init(scene), inputs: .init())
-        
-        print(outputs)
-
+  
         if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("\(outputs.title).stl") {
             try? outputs.data.write(to: url, options: .atomic)
             print("STL file written to \(url.path)")

@@ -1,4 +1,4 @@
-import OpenCAD
+import SwiftCAD
 
 @main
 struct MyApp : App {
@@ -6,7 +6,7 @@ struct MyApp : App {
         Window(title: "Sphere") {
             Union {
                 Sphere(radius: 10)
-                Cube(size: 5)
+                Cube(size: 10)
             }
         }
     }

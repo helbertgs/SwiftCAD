@@ -1,7 +1,7 @@
 import Foundation
 
 /// A structure that defines a tuple shape, which can contain any shape as its content.
-public struct _TupleShape<Content> : Shape where Content : Shape {
+public struct _TupleShape<Content> : Shape {
 
     /// The content of the tuple shape, which is a shape conforming to the `Shape` protocol.
     public var content: Content
