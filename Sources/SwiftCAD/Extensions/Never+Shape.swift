@@ -8,6 +8,6 @@ extension Never : Shape {
     ///   - inputs: The inputs for the shape.
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ shape: _GraphValue<Never>, inputs: _ShapeInputs) -> _ShapeOutputs {
-        .init()
+        fatalError("Never shape cannot be created")
     }
 }

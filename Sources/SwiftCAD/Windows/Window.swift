@@ -29,7 +29,10 @@ public struct Window<Content> : Scene where Content : Shape {
     ///   - inputs: The inputs to the scene.
     /// - Returns: The outputs of the scene.
     public static func _makeScene(_ scene: _GraphValue<Window<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let output = Content._makeShape(_GraphValue(scene.value.content), inputs: _ShapeInputs())
+        let body = scene.value.body
+        let graph = _GraphValue(body, generation: inputs.generation + 1)
+
+        let output = Content._makeShape(graph, inputs: .init(environmentValues: inputs.environmentValues))
 
         var source = "solid OpenCAD\n"
         for tri in output.triangles {

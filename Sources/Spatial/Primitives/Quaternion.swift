@@ -17,6 +17,18 @@ import Foundation
     /// The w component of the quaternion.
     public let w: Double
 
+    // MARK: - Checking characteristics
+
+    /// A Boolean value indicating whether the quaternion is the identity quaternion.
+    public var isIdentity: Bool {
+        x == 0 && y == 0 && z == 0 && w == 1
+    }
+
+    /// A quaternion representing the identity rotation.
+    public static var identity: Quaternion {
+        Quaternion(x: 0, y: 0, z: 0, w: 1)
+    }
+
     // MARK: - Creating a quaternion
 
     /// Initializes a quaternion with the given components.

@@ -24,8 +24,8 @@ import Spatial
     /// - Parameter 
     ///   - side: The length of the sides of the square.
     ///   - center: A Boolean value indicating whether the square should be centered.
-    @inlinable public init<T>(side: T, center: Bool = false) where T : BinaryFloatingPoint {
-        self.size = Size(width: side, height: side, depth: 0)
+    @inlinable public init<T>(size: T, center: Bool = false) where T : BinaryFloatingPoint {
+        self.size = Size(width: size, height: size, depth: 0)
         self.center = center
     }
 }

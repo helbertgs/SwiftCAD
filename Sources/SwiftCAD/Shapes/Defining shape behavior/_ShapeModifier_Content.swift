@@ -27,6 +27,26 @@ extension _ShapeModifier_Content : Shape where Content : ShapeModifier {
     ///   - inputs: The inputs for the shape.
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ shape: _GraphValue<_ShapeModifier_Content<Content>>, inputs: _ShapeInputs) -> _ShapeOutputs {
-        .init()
+        var outputs = _ShapeOutputs()
+
+        let _ = Content
+                    ._makeShape(
+                        .init(shape.value.content),
+                        inputs: inputs,
+                        body: { graph, inp in
+                            guard let shape = graph.root as? _GraphValue<any Shape> else {
+                                return .init()
+                            }
+
+                            outputs = extract(shape.value, inputs: inp)
+                            return .init()
+                        }
+                    )
+
+        return outputs
+    }
+
+    private static func extract<T>(_ shape: T, inputs: _ShapeInputs) -> _ShapeOutputs where T : Shape  {
+        T._makeShape(.init(shape), inputs: inputs)
     }
 }

@@ -39,10 +39,11 @@ extension _TupleShape : Shape {
             }
 
             let output = build(shape, inputs: inputs)
+            outputs.vertices.append(contentsOf: output.vertices)
+            outputs.faces.append(contentsOf: output.faces)
             outputs.triangles.append(contentsOf: output.triangles)
+            outputs.children.append(output)
         }
-
-        print(outputs.triangles)
 
         return outputs
     }
