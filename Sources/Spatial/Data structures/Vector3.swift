@@ -262,6 +262,44 @@ extension Vector3 : Rotatable {
     ///
     /// - Parameter quaternion: The quaternion representing the rotation.
     public mutating func rotate(by quaternion: Quaternion) {
+        // If quaternion is identity, no change needed.
+        if quaternion.isIdentity { return }
+
+        // Compute norm and normalize quaternion to ensure a pure rotation.
+        let qx = quaternion.x
+        let qy = quaternion.y
+        let qz = quaternion.z
+        let qw = quaternion.w
+
+        let norm = sqrt(qx * qx + qy * qy + qz * qz + qw * qw)
+        guard norm.isFinite && norm != 0 else { return }
+
+        let ix = qx / norm
+        let iy = qy / norm
+        let iz = qz / norm
+        let iw = qw / norm
+
+        // Apply rotation: v' = v + 2*qw*(q_vec x v) + 2*(q_vec x (q_vec x v))
+        // Compute t = 2 * (q_vec x v)
+        let vx = x
+        let vy = y
+        let vz = z
+
+        let tx = 2.0 * (iy * vz - iz * vy)
+        let ty = 2.0 * (iz * vx - ix * vz)
+        let tz = 2.0 * (ix * vy - iy * vx)
+
+        // Compute cross(q_vec, t)
+        let cx = iy * tz - iz * ty
+        let cy = iz * tx - ix * tz
+        let cz = ix * ty - iy * tx
+
+        // Final rotated vector
+        let rx = vx + iw * tx + cx
+        let ry = vy + iw * ty + cy
+        let rz = vz + iw * tz + cz
+
+        self = Vector3(x: rx, y: ry, z: rz)
     }
 
     /// Returns a new point rotated by the specified quaternion.
