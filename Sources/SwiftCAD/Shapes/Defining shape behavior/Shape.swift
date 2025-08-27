@@ -29,10 +29,7 @@ extension Shape {
             fatalError("body() has not been implemented")    
         }
 
-        let body = shape.value.body
-        let graph = _GraphValue(body, generation: inputs.generation + 1)
-
-        return type(of: body)._makeShape(graph, inputs: inputs)
+        return Self.Body._makeShape(_GraphValue(shape.value.body, generation: inputs.generation + 1), inputs: inputs)
     }
 }
 
@@ -54,7 +51,7 @@ extension Shape {
     /// - Parameter position: The position vector to translate the shape by.
     /// - Returns: A modified shape.
     @inlinable public func translate(_ position: Vector3) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(TranslateModifier(position))
     }
 
     /// Translates the shape by a given position vector.
@@ -62,7 +59,7 @@ extension Shape {
     /// - Parameter position: The position vector to translate the shape by.
     /// - Returns: A modified shape.
     @inlinable public func translate(_ position: Vector2) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(TranslateModifier(Vector3(position)))
     }
 
     /// Translates the shape by a given position vector.
@@ -73,7 +70,7 @@ extension Shape {
     ///   - z: The z-coordinate of the position vector.
     /// - Returns: A modified shape.
     @inlinable public func translate(x: Double = 0, y: Double = 0, z: Double = 0) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(TranslateModifier(Vector3(x: x, y: y, z: z)))
     }
 
     /// Scales the shape by a given size.
@@ -81,7 +78,7 @@ extension Shape {
     /// - Parameter size: The size to scale the shape by.
     /// - Returns: A modified shape.
     @inlinable public func scale(_ size: Size) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(ScaleModifier(size))
     }
 
     /// Scales the shape by a given size.
@@ -89,7 +86,7 @@ extension Shape {
     /// - Parameter size: The size to scale the shape by.
     /// - Returns: A modified shape.
     @inlinable public func scale(_ size: Vector2) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(ScaleModifier(Size(size)))
     }
 
     /// Scales the shape by a given size.
@@ -97,7 +94,7 @@ extension Shape {
     /// - Parameter size: The size to scale the shape by.
     /// - Returns: A modified shape.
     @inlinable public func scale(_ size: Vector3) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(ScaleModifier(Size(size)))
     }
 
     /// Scales the shape by a given size.
@@ -108,15 +105,7 @@ extension Shape {
     ///   - depth: The depth to scale the shape by.
     /// - Returns: A modified shape.
     @inlinable public func scale(width: Double = 0, height: Double = 0, depth: Double = 0) -> some Shape {
-        modifier(EmptyModifier())
-    }
-
-    /// Rotates the shape by a given angle.
-    /// 
-    /// - Parameter angle: The angle to rotate the shape by.
-    /// - Returns: A modified shape.
-    @inlinable public func rotate(_ angle: Angle) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(ScaleModifier(Size(width: width, height: height, depth: depth)))
     }
 
     /// Rotates the shape by a given quaternion.
@@ -124,7 +113,7 @@ extension Shape {
     /// - Parameter quaternion: The quaternion to rotate the shape by.
     /// - Returns: A modified shape.
     @inlinable public func rotate(_ quaternion: Quaternion) -> some Shape {
-        modifier(EmptyModifier())
+        modifier(RotateModifier(quaternion))
     }
 
     /// Transforms the shape by a given transformation.

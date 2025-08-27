@@ -55,6 +55,9 @@ extension Cylinder : Shape {
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ shape: _GraphValue<Cylinder>, inputs: _ShapeInputs) -> _ShapeOutputs {
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
+
         let r1 = shape.value.r1
         let r2 = shape.value.r2
         let height = shape.value.height
@@ -70,11 +73,15 @@ extension Cylinder : Shape {
             let v1 = Vector3(x: x1 * r1, y: y1 * r1, z: 0)
             let v2 = Vector3(x: x1 * r2, y: y1 * r2, z: height)
             let v3 = Vector3(x: x0 * r2, y: y0 * r2, z: height)
+            let v4 = Vector3(x: 0, y: 0, z: 0)
+            let v5 = Vector3(x: 0, y: 0, z: height)
 
-            outputs.triangles.append(Triangle(a: v0, b: v1, c: v2))
-            outputs.triangles.append(Triangle(a: v0, b: v2, c: v3))
-            outputs.triangles.append(Triangle(a: Vector3(x: 0, y: 0, z: 0), b: v1, c: v0))
-            outputs.triangles.append(Triangle(a: Vector3(x: 0, y: 0, z: height), b: v2, c: v3))
+            outputs.vertices.append(contentsOf: [v0, v1, v2, v3, v4, v5])
+
+            outputs.faces.append(Triangle(a: v0, b: v1, c: v2))
+            outputs.faces.append(Triangle(a: v0, b: v2, c: v3))
+            outputs.faces.append(Triangle(a: v4, b: v1, c: v0))
+            outputs.faces.append(Triangle(a: v5, b: v2, c: v3))
         }
 
         return outputs

@@ -26,31 +26,6 @@ extension ModifiedContent : Shape where Content : Shape, Modifier : ShapeModifie
         content
     }
 
-//    /// Creates a new shape from the given graph value and inputs.
-//    /// - Parameters:
-//    ///   - shape: The graph value representing the shape.
-//    ///   - inputs: The inputs for the shape.
-//    /// - Returns: The outputs of the shape.
-//    public static func _makeShape(_ shape: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ShapeInputs) -> _ShapeOutputs {
-//        var root = shape
-//        let content = shape.value.content
-//        let modifier = shape.value.modifier
-//
-//        let modified = Modifier._makeShape(
-//            _GraphValue(modifier),
-//            inputs: inputs,
-//            body: { graph, inputs in
-//                guard let content = graph.root as? _GraphValue<any Shape> else {
-//                    return .init()
-//                }
-//                
-//                return _mapShape(content.value, inputs: inputs)
-//            }
-//        )
-//
-//        return Content._makeShape(.init(content), inputs: inputs)
-//    }
-
     /// Creates a new shape from the given graph value and inputs.
     /// - Parameters:
     ///   - shape: The graph value representing the shape.
@@ -59,26 +34,10 @@ extension ModifiedContent : Shape where Content : Shape, Modifier : ShapeModifie
     public static func _makeShape(_ shape: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ShapeInputs) -> _ShapeOutputs {
         let content = shape.value.content
         let modifier = shape.value.modifier
-        var newInputs = inputs
-        var outputs = _ShapeOutputs()
 
-        let m = Modifier._makeShape(
-            _GraphValue(modifier),
-            inputs: inputs,
-            body: { _, i in
-                newInputs = i
-                return .init()
-            }
-        )
-
-        let c = Content._makeShape(.init(content), inputs: newInputs)
-
-        print(m, c)
+        var outputs = Content._makeShape(_GraphValue(content, generation: shape.generation + 1), inputs: inputs)
+        outputs.modifiers.append(modifier)
 
         return outputs
     }
-
-//    private static func _mapShape<T>(_ shape: T, inputs: _ShapeInputs) -> _ShapeOutputs where T : Shape {
-//        T._makeShape(.init(shape), inputs: inputs)
-//    }
 }

@@ -31,6 +31,9 @@ extension Polygon : Shape {
         }
 
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
+
         let vertices = shape.value.points.map(Vector3.init)
         let count = vertices.count
 
@@ -43,7 +46,9 @@ extension Polygon : Shape {
         for i in 0..<count {
             let v2 = vertices[i]
             let v3 = vertices[(i + 1) % count]
-            outputs.triangles.append(Triangle(a: center, b: v2, c: v3))
+
+            outputs.vertices.append(contentsOf: [center, v2, v3])
+            outputs.faces.append(Triangle(a: center, b: v2, c: v3))
         }
 
         return outputs

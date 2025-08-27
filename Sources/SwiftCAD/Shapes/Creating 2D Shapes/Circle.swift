@@ -34,6 +34,9 @@ extension Circle : Shape {
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ shape: _GraphValue<Circle>, inputs: _ShapeInputs) -> _ShapeOutputs {
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
+        
         let segments = shape.value.segments
         let radius = shape.value.radius
         let step = 2 * Double.pi / Double(segments)
@@ -49,7 +52,9 @@ extension Circle : Shape {
             let v1 = center
             let v2 = vertices[i]
             let v3 = vertices[(i + 1) % segments]
-            outputs.triangles.append(Triangle(a: v1, b: v2, c: v3))
+
+            outputs.vertices.append(contentsOf: [v1, v2, v3])
+            outputs.faces.append(Triangle(a: v1, b: v2, c: v3))
         }
 
         return outputs

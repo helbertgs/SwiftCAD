@@ -40,6 +40,9 @@ extension Sphere : Shape {
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ shape: _GraphValue<Sphere>, inputs: _ShapeInputs) -> _ShapeOutputs {
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
+
         let stacks = shape.value.stacks
         let slices = shape.value.slices
         let radius = shape.value.radius
@@ -66,8 +69,9 @@ extension Sphere : Shape {
 
                 let v4 = Vector3(x: x1*zr0, y: y1*zr0, z: z0)
 
-                outputs.triangles.append(Triangle(a: v1, b: v2, c: v3))
-                outputs.triangles.append(Triangle(a: v1, b: v3, c: v4))
+                outputs.vertices.append(contentsOf: [v1, v2, v3, v4])
+                outputs.faces.append(Triangle(a: v1, b: v2, c: v3))
+                outputs.faces.append(Triangle(a: v1, b: v3, c: v4))
             }
         }
 

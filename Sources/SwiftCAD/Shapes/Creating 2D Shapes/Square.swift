@@ -44,6 +44,8 @@ extension Square : Shape {
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ shape: _GraphValue<Square>, inputs: _ShapeInputs) -> _ShapeOutputs {
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
 
         let width = shape.value.size.width / 2
         let height = shape.value.size.height / 2
@@ -65,8 +67,9 @@ extension Square : Shape {
             ]
         }
 
-        outputs.triangles.append(Triangle(a: vertices[0], b: vertices[1], c: vertices[2]))
-        outputs.triangles.append(Triangle(a: vertices[0], b: vertices[2], c: vertices[3]))
+        outputs.vertices.append(contentsOf: vertices)
+        outputs.faces.append(Triangle(a: vertices[0], b: vertices[1], c: vertices[2]))
+        outputs.faces.append(Triangle(a: vertices[0], b: vertices[2], c: vertices[3]))
 
         return outputs
     }    

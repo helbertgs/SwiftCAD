@@ -48,30 +48,26 @@ extension ShapeModifier {
     /// - Returns: The outputs of the shape.
     public static func _makeShape(_ modifier: _GraphValue<Self>, inputs: _ShapeInputs, body: @escaping (_Graph, _ShapeInputs) -> _ShapeOutputs) -> _ShapeOutputs {
         guard Self.Body.self != Never.self else {
-            fatalError("body() has not been implemented")    
+            var outputs = body(.init(modifier.value), inputs)
+            outputs.modifiers.append(modifier.value)
+
+            return outputs  
         }
 
         let content = Self.Content(content: modifier.value)
         let shape = modifier.value.body(content: content)
+        let graph = _Graph(shape)
 
-        if let mod = shape as? ModifiedContent<Any, Any> {
-            if let m = mod.modifier as? any ShapeModifier {
-                return _mapShape(m, inputs: inputs, body: body)
-            }
-
-            if let c = mod.content as? any Shape {
-                return _mapShape(c, inputs: inputs)
-            }
-        }
-
-        return .init()
-    }
-
-    private static func _mapShape<T>(_ shape: T, inputs: _ShapeInputs, body: @escaping (_Graph, _ShapeInputs) -> _ShapeOutputs) -> _ShapeOutputs where T: ShapeModifier {
-        T._makeShape(.init(shape), inputs: inputs, body: body)
-    }
-
-    private static func _mapShape<T>(_ shape: T, inputs: _ShapeInputs) -> _ShapeOutputs where T: Shape {
-        T._makeShape(.init(shape), inputs: inputs)
+        return body(graph, inputs)
     }
 }
+
+extension ShapeModifier where Body == Never {
+
+    /// Gets the current body of the caller.
+    /// 
+    /// content is a proxy for the shape that will have the modifier represented by Self applied to it.
+    public func body(content: Self.Content) -> Never {
+        fatalError("body() has not been implemented")
+    }
+}   

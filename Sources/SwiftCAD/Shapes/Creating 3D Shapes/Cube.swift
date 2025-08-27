@@ -65,13 +65,17 @@ extension Cube : Shape {
         ]
 
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
+        outputs.vertices = vertices
+
         faces.forEach { face in
             let a = vertices[face.0]
             let b = vertices[face.1]
             let c = vertices[face.2]
 
             outputs
-                .triangles
+                .faces
                 .append(
                     .init(a: a, b: b, c: c)
                 )

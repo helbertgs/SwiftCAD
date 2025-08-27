@@ -28,6 +28,8 @@ extension _TupleShape : Shape {
     public static func _makeShape(_ shape: _GraphValue<_TupleShape>, inputs: _ShapeInputs) -> _ShapeOutputs {
         let mirror = Mirror(reflecting: shape.value.content)
         var outputs = _ShapeOutputs()
+        outputs.type = Self.self
+        outputs.content = shape.value
 
         for child in mirror.children {
             guard let shape = child.value as? any Shape else {
@@ -41,7 +43,7 @@ extension _TupleShape : Shape {
             let output = build(shape, inputs: inputs)
             outputs.vertices.append(contentsOf: output.vertices)
             outputs.faces.append(contentsOf: output.faces)
-            outputs.triangles.append(contentsOf: output.triangles)
+            outputs.faces.append(contentsOf: output.faces)
             outputs.children.append(output)
         }
 

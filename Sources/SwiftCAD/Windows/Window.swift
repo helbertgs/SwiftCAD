@@ -29,13 +29,14 @@ public struct Window<Content> : Scene where Content : Shape {
     ///   - inputs: The inputs to the scene.
     /// - Returns: The outputs of the scene.
     public static func _makeScene(_ scene: _GraphValue<Window<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let body = scene.value.body
-        let graph = _GraphValue(body, generation: inputs.generation + 1)
+        let body = scene.value.content
+        let graph = _GraphValue(body, generation: scene.generation + 1)
 
         let output = Content._makeShape(graph, inputs: .init(environmentValues: inputs.environmentValues))
+        // print(output)
 
         var source = "solid OpenCAD\n"
-        for tri in output.triangles {
+        for tri in output.faces {
             source += " facet normal 0 0 0\n"
             source += "  outer loop\n"
             source += "   vertex \(tri.a.x) \(tri.a.y) \(tri.a.z)\n"

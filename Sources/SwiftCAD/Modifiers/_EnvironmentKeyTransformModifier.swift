@@ -40,6 +40,9 @@ extension _EnvironmentKeyTransformModifier : ShapeModifier {
         var inputs = inputs
         modifier.value.transform(&inputs.environmentValues[keyPath: modifier.value.keyPath])
 
-        return body(_Graph(modifier.value), inputs)
+        var outputs = body(_Graph(modifier.value), inputs)
+        outputs.modifiers.append(modifier.value)
+
+        return outputs
     } 
 }
