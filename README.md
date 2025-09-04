@@ -44,7 +44,7 @@ Add SwiftCAD to your project using Swift Package Manager:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/helbertgs/SwiftCAD.git", branch: "main")
+    .package(url: "https://github.com/helbertgs/SwiftCAD.git", branch: "develop")
 ]
 ```
 
