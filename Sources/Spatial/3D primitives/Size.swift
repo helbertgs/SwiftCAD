@@ -201,3 +201,26 @@ extension Size : AdditiveArithmetic {
         lhs = lhs / rhs
     }
 }
+
+extension Size : Primitive {
+
+    /// Returns a Boolean value that indicates whether the size is finite.
+    public var isFinite: Bool {
+        self == .infinity
+    }
+    
+    /// Returns a Boolean value that indicates whether the size contains any NaN values.
+    public var isNaN: Bool {
+        self.width.isNaN || self.height.isNaN || self.depth.isNaN
+    }
+    
+    /// Returns a Boolean value that indicates whether the size is zero.
+    public var isZero: Bool {
+        self.width == 0 && self.height == 0 && self.depth == 0
+    }
+
+    /// A size with infinite values.
+    public static var infinity: Size {
+        .init(width: .infinity, height: .infinity, depth: .infinity)
+    }
+}

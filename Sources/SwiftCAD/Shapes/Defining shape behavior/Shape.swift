@@ -120,7 +120,7 @@ extension Shape {
     /// 
     /// - Parameter transform: The transformation to apply to the shape.
     /// - Returns: A modified shape.
-    @inlinable public func transform(_ transform: Transform) -> some Shape {
+    @inlinable public func transform(_ transform: AffineTransform) -> some Shape {
         modifier(EmptyModifier())
     }
 

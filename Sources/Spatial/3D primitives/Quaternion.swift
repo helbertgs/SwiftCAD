@@ -1,7 +1,7 @@
 import Foundation
 
 /// A structure representing a quaternion for 3D rotations.
-@frozen public struct Quaternion {
+@frozen public struct Quaternion : Codable, Equatable, Hashable, Sendable {
 
     // MARK: - Inspecting a quaternion's properties
 
