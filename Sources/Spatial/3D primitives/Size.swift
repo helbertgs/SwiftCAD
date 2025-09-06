@@ -60,15 +60,6 @@ import Foundation
         self.height = xyz.y
         self.depth = xyz.z
     }
-
-    /// Creates a size structure from the specified Spatial vector.
-    /// 
-    /// - Parameter vector: A vector that specifies the dimensions.
-    public init(_ xy: Vector2) {
-        self.width = xy.x
-        self.height = xy.y
-        self.depth = 0
-    }
 }
 
 extension Size : AdditiveArithmetic {
@@ -203,6 +194,20 @@ extension Size : AdditiveArithmetic {
 }
 
 extension Size : Primitive {
+
+    /// Returns the entity that results from applying an affine transform.
+    ///
+    /// - Parameter transform: The affine transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: AffineTransform) -> Size {
+        .zero
+    }
+
+    /// Returns the entity that results from applying a projective transform.
+    ///
+    /// - Parameter transform: The projective transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: ProjectiveTransform) -> Size {
+        .zero
+    }
 
     /// Returns a Boolean value that indicates whether the size is finite.
     public var isFinite: Bool {

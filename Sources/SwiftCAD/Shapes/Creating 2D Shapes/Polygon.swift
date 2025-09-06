@@ -4,12 +4,12 @@ import Spatial
 @frozen public struct Polygon : Codable, Equatable, Hashable, Sendable {
 
     /// The vertices of the polygon.
-    public let points: [Vector2]
+    public let points: [Vector3]
 
     /// Creates a new polygon with the specified vertices.
     /// Creates a new polygon with the specified points.
     /// - Parameter points: The points of the polygon.
-    @inlinable public init(points: [Vector2]) {
+    @inlinable public init(points: [Vector3]) {
         self.points = points
     }
 }
@@ -34,13 +34,13 @@ extension Polygon : Shape {
         outputs.type = Self.self
         outputs.content = shape.value
 
-        let vertices = shape.value.points.map(Vector3.init)
+        let vertices = shape.value.points
         let count = vertices.count
 
         let center = Vector3(
             x: vertices.reduce(0) { $0 + $1.x } / Double(count),
             y: vertices.reduce(0) { $0 + $1.y } / Double(count),
-            z: 0
+            z: vertices.reduce(0) { $0 + $1.z } / Double(count)
         )
 
         for i in 0..<count {

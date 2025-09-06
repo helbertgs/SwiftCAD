@@ -121,16 +121,29 @@ import Foundation
     }
 
     /// Returns a normalized quaternion (unit length). If zero, returns identity.
-    /// 
-    /// - Complexity: O(1)
-    @inlinable public func normalized() -> Quaternion {
+    public var normalized: Quaternion {
         let n = Foundation.sqrt(x * x + y * y + z * z + w * w)
         guard n.isFinite && n != 0 else { return Quaternion.identity }
+
         return Quaternion(x: x / n, y: y / n, z: z / n, w: w / n)
     }
 }
 
 extension Quaternion : Primitive {
+
+    /// Returns the entity that results from applying an affine transform.
+    ///
+    /// - Parameter transform: The affine transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: AffineTransform) -> Quaternion {
+        .zero
+    }
+
+    /// Returns the entity that results from applying a projective transform.
+    ///
+    /// - Parameter transform: The projective transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: ProjectiveTransform) -> Quaternion {
+        .zero
+    }
 
     /// Returns a Boolean value that indicates whether the quaternion is finite.
     public var isFinite: Bool {

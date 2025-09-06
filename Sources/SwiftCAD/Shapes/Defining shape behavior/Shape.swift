@@ -56,14 +56,6 @@ extension Shape {
 
     /// Translates the shape by a given position vector.
     /// 
-    /// - Parameter position: The position vector to translate the shape by.
-    /// - Returns: A modified shape.
-    @inlinable public func translate(_ position: Vector2) -> some Shape {
-        modifier(TranslateModifier(Vector3(position)))
-    }
-
-    /// Translates the shape by a given position vector.
-    /// 
     /// - Parameters:
     ///   - x: The x-coordinate of the position vector.
     ///   - y: The y-coordinate of the position vector.
@@ -79,14 +71,6 @@ extension Shape {
     /// - Returns: A modified shape.
     @inlinable public func scale(_ size: Size) -> some Shape {
         modifier(ScaleModifier(size))
-    }
-
-    /// Scales the shape by a given size.
-    /// 
-    /// - Parameter size: The size to scale the shape by.
-    /// - Returns: A modified shape.
-    @inlinable public func scale(_ size: Vector2) -> some Shape {
-        modifier(ScaleModifier(Size(size)))
     }
 
     /// Scales the shape by a given size.

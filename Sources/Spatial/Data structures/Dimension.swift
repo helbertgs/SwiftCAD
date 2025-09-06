@@ -1,5 +1,6 @@
 import Foundation
 
+/// 
 public struct Dimension : CaseIterable, Codable, Equatable, Hashable, OptionSet, Sendable {
 
     // MARK: - Constants

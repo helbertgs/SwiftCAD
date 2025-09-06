@@ -121,21 +121,6 @@ import Foundation
 
     // MARK: - Translatable Conformance
 
-    /// Translates the projective transform by the specified vector.
-    /// 
-    /// - Parameter vector: The vector representing the translation.
-    public mutating func translate(by vector: Vector2) {
-        fatalError("not implemented")
-    }
-
-    /// Returns a new projective transform translated by the specified vector.
-    /// 
-    /// - Parameter vector: The vector representing the translation.
-    /// - Returns: A new projective transform translated by the specified vector.
-    public func translated(by vector: Vector2) -> ProjectiveTransform {
-        fatalError("not implemented")
-    }
-
     /// Translates the projective transform by the specified 3D vector.
     /// 
     /// - Parameter vector: The vector representing the translation.

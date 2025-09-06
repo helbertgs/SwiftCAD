@@ -72,16 +72,6 @@ import Foundation
         self.z = vector.z
     }
 
-    /// Creates a new 3D point from the specified 2D vector.
-    /// 
-    /// - Parameters:
-    ///   - vector: A 2D vector that specifies the x and y coordinates.
-    @inlinable public init(_ vector: Vector2) {
-        self.x = vector.x
-        self.y = vector.y
-        self.z = 0
-    }
-
     // MARK: - Checking characteristics
 
     /// The squared magnitude of the point.
@@ -194,6 +184,20 @@ extension Point : AdditiveArithmetic {
 }
 
 extension Point : Primitive {
+
+    /// Returns the entity that results from applying an affine transform.
+    ///
+    /// - Parameter transform: The affine transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: AffineTransform) -> Point {
+        .zero
+    }
+
+    /// Returns the entity that results from applying a projective transform.
+    ///
+    /// - Parameter transform: The projective transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: ProjectiveTransform) -> Point {
+        .zero
+    }
 
     /// Returns a Boolean value that indicates whether the primitive is infinite.
     public var isFinite: Bool {

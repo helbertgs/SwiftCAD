@@ -26,6 +26,17 @@ import Foundation
         Vector3(x: 1, y: 1, z: 1)
     }
 
+    // MARK: - Type properties
+
+    /// A vector that contains the values 0, 0, 1.
+    public static let forward: Vector3 = .init(x: 0, y: 0, z: 1)
+
+    /// A vector that contains the values 1, 0, 0.
+    public static let right: Vector3 = .init(x: 1, y: 0, z: 0)
+
+    /// A vector that contains the values 0, 1, 0.
+    public static let up: Vector3 = .init(x: 0, y: 1, z: 0)
+
     // MARK: - Creating a 3D vector
 
     /// Creates a new 3D vector.
@@ -61,15 +72,6 @@ import Foundation
         self.z = size.depth
     }
 
-    /// Creates a new 3D vector from the specified 2D vector.
-    /// 
-    /// - Parameter vector2: A 2D vector that specifies the x and y coordinates.
-    @inlinable public init(_ vector2: Vector2) {
-        self.x = vector2.x
-        self.y = vector2.y
-        self.z = 0
-    }
-
     /// Creates a new 3D vector from the specified 3D point.
     ///
     /// - Parameters:
@@ -78,6 +80,71 @@ import Foundation
         self.x = point.x
         self.y = point.y
         self.z = point.z
+    }
+
+    // MARK: - Geometry functions
+    
+    /// Returns the cross product of the vector and the specified vector.
+    ///
+    /// - Parameter other: The second vector.
+    public func cross(_ other: Vector3) -> Vector3 {
+        .zero
+    }
+    
+    /// Returns the dot product of the vector and the specified vector.
+    ///
+    /// - Parameter other: The second vector.
+    public func dot(_ other: Vector3) -> Double {
+        0
+    }
+    
+    /// The length of the vector.
+    public var length: Double {
+        sqrt(x * x + y * y + z * z)
+    }
+
+    /// The square of the length of the vector.
+    public var lengthSquared: Double {
+        0
+    }
+    
+    /// Normalizes the mutable vector.
+    public mutating func normalize() {
+    }
+    
+    /// A new vector that represents the normalized copy of the current vector.
+    public var normalized: Vector3 {
+        length > 0 ? self * (1 / length) : self
+    }
+    
+    /// Returns the vector projected onto the specified vector.
+    ///
+    /// - Parameter other: The second vector.
+    public func projected(_ other: Vector3) -> Vector3 {
+        .zero
+    }
+    
+    /// Returns the reflection direction of the incident vector and a specified unit normal vector.
+    ///
+    /// - Parameter normal: The unit normal vector.
+    public func reflected(_ normal: Vector3) -> Vector3 {
+        .zero
+    }
+
+    // MARK: - Transforming a vector
+
+    /// Returns the entity that results from applying an affine transform.
+    ///
+    /// - Parameter transform: The affine transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: AffineTransform) -> Vector3 {
+        .zero
+    }
+
+    /// Returns the entity that results from applying a projective transform.
+    ///
+    /// - Parameter transform: The projective transform that the function applies to the Spatial primitive.
+    public func applying(_ transform: ProjectiveTransform) -> Vector3 {
+        .zero
     }
 }
 
@@ -313,22 +380,6 @@ extension Vector3 : Rotatable {
 }
 
 extension Vector3 : Translatable {
-
-    /// Translates the entity by the given vector.
-    /// 
-    /// - Parameter vector: The vector that defines the translation.
-    public mutating func translate(by vector: Vector2) {
-        self = Vector3(x: x + vector.x, y: y + vector.y, z: z)
-    }
-
-    /// Returns a new entity translated by the given vector.
-    /// 
-    /// - Parameter vector: The vector that defines the translation.
-    public func translated(by vector: Vector2) -> Vector3 {
-        var copy = self
-        copy.translate(by: vector)
-        return copy
-    }
 
     /// Translates the entity by the given vector.
     /// 

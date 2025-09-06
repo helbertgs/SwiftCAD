@@ -244,12 +244,59 @@ public struct AffineTransform : Sendable {
 
     /// The affine transform’s rotation.
     public var rotation: Quaternion? {
-        .init(x: m11, y: m22, z: m33, w: m44)
+        let s = self.scale
+        let m = self
+        let m00 = m[0, 0] / s.width
+        let m01 = m[0, 1] / s.height
+        let m02 = m[0, 2] / s.depth
+        let m10 = m[1, 0] / s.width
+        let m11 = m[1, 1] / s.height
+        let m12 = m[1, 2] / s.depth
+        let m20 = m[2, 0] / s.width
+        let m21 = m[2, 1] / s.height
+        let m22 = m[2, 2] / s.depth
+
+        let trace = m00 + m11 + m22
+        var (x, y, z, w) = (0.0, 0.0, 0.0, 0.0)
+
+        if trace > 0 {
+            let s = sqrt(trace + 1.0) * 2
+            w = 0.25 * s
+            x = (m21 - m12) / s
+            y = (m02 - m20) / s
+            z = (m10 - m01) / s
+        } else if (m00 > m11) && (m00 > m22) {
+            let s = sqrt(1.0 + m00 - m11 - m22) * 2
+            w = (m21 - m12) / s
+            x = 0.25 * s
+            y = (m01 + m10) / s
+            z = (m02 + m20) / s
+        } else if m11 > m22 {
+            let s = sqrt(1.0 + m11 - m00 - m22) * 2
+            w = (m02 - m20) / s
+            x = (m01 + m10) / s
+            y = 0.25 * s
+            z = (m12 + m21) / s
+        } else {
+            let s = sqrt(1.0 + m22 - m00 - m11) * 2
+            w = (m10 - m01) / s
+            x = (m02 + m20) / s
+            y = (m12 + m21) / s
+            z = 0.25 * s
+        }
+
+        return Quaternion(x: x, y: y, z: z, w: w).normalized
     }
 
     /// The affine transform’s scale.
     public var scale: Size {
-        .init(width: 0, height: 0, depth: 0)
+        let m = self
+
+        let sx = sqrt(m[0, 0] * m[0, 0] + m[1, 0] * m[1, 0] + m[2, 0] * m[2, 0])
+        let sy = sqrt(m[0, 1] * m[0, 1] + m[1, 1] * m[1, 1] + m[2, 1] * m[2, 1])
+        let sz = sqrt(m[0, 2] * m[0, 2] + m[1, 2] * m[1, 2] + m[2, 2] * m[2, 2])
+
+        return Size(width: sx, height: sy, depth: sz)
     }
 
     /// The translation component of the affine transform.
@@ -531,24 +578,6 @@ extension AffineTransform : Translatable {
     /// Translates the affine transform by the specified vector.
     /// 
     /// - Parameter vector: The vector to translate the transform by.
-    public mutating func translate(by vector: Vector2) {
-        self.m41 += vector.x
-        self.m42 += vector.y
-    }
-
-    /// Returns a new affine transform translated by the specified vector.
-    /// 
-    /// - Parameter vector: The vector to translate the transform by.
-    /// - Returns: A new affine transform that is translated by the specified vector.
-    public func translated(by vector: Vector2) -> AffineTransform {
-        var transform = self
-        transform.translate(by: vector)
-        return transform
-    }
-
-    /// Translates the affine transform by the specified vector.
-    /// 
-    /// - Parameter vector: The vector to translate the transform by.
     public mutating func translate(by vector: Vector3) {
         self.m41 += vector.x
         self.m42 += vector.y
@@ -574,7 +603,7 @@ extension AffineTransform : Transformable {
     public init(rotation: Quaternion) {
         fatalError()
     }
-    
+
     /// Creates an affine transform from the specified scale.
     /// 
     /// - Parameter scale: The scale to create the transform from.
@@ -640,7 +669,7 @@ extension AffineTransform : Transformable {
     }
 }
 
-extension AffineTransform : AdditiveArithmetic {
+extension AffineTransform {
 
     // MARK: - Applying arithmetic operations
 
@@ -774,38 +803,5 @@ extension AffineTransform : AdditiveArithmetic {
     ///   - rhs: The scalar value to divide by.
     @inlinable public static func /= (lhs: inout AffineTransform, rhs: Double) {
         lhs = lhs / rhs
-    }
-}
-
-extension AffineTransform : Primitive {
-
-    /// A primitive with zero values.
-    public static var zero: AffineTransform {
-        .init(matrix4x4: [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ])
-    }
-
-    /// Returns a Boolean value that indicates whether the primitive is infinite.
-    public var isFinite: Bool {
-        self == .infinity
-    }
-
-    /// Returns a Boolean value that indicates whether the primitive contains any NaN values.
-    public var isNaN: Bool {
-        fatalError()
-    }
-
-    /// Returns a Boolean value that indicates whether the primitive is zero.
-    public var isZero: Bool {
-        self == .zero
-    }
-
-    /// A primitive with infinite values.
-    public static var infinity: AffineTransform {
-        .init(scale: .infinity, rotation: .infinity, translation: .infinity)
     }
 }
