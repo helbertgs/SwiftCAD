@@ -1,13 +1,13 @@
 import Foundation
 
-/// 
-public struct Dimension : CaseIterable, Codable, Equatable, Hashable, OptionSet, Sendable {
+/// A dimension in 3D space.
+public struct Dimension : Codable, Equatable, Hashable, OptionSet, Sendable {
 
     // MARK: - Constants
 
     /// All dimensions.
-    public static var allCases: [Dimension] {
-        [.x, .y, .z]
+    public static var all: Dimension {
+        [.x,  .y, .z ]
     }
 
     /// The x-dimension.
